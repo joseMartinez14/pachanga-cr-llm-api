@@ -1,0 +1,17 @@
+[project]
+name = "ai-game-tool"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+dependencies = [
+    "langchain>=0.2.0",
+    "langchain-openai>=0.1.0",
+    "pydantic>=2.7",
+    "upstash-redis>=0.15.0",
+    "tenacity>=8.2",
+    "python-dotenv>=1.0",
+    "orjson>=3.10",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

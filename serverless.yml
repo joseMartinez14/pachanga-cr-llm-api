@@ -1,0 +1,54 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: josems14dev
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: pachanga-cr
+service: ai-game-tool
+
+plugins:
+  - serverless-python-requirements
+  - serverless-offline
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    slim: true
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  stage: dev
+  timeout: 15
+  environment:
+    OPENAI_API_KEY: ${env:OPENAI_API_KEY}
+    UPSTASH_REDIS_URL: ${env:UPSTASH_REDIS_URL}
+    UPSTASH_REDIS_TOKEN: ${env:UPSTASH_REDIS_TOKEN}
+    # API_BEARER_TOKEN: ${env:API_BEARER_TOKEN}
+    # DEFAULT_LOCALE: ${env:DEFAULT_LOCALE}
+
+functions:
+  game:
+    handler: src.app.handler
+    events:
+      - httpApi:
+          path: /game-content
+          method: POST
+  feedback:
+    handler: src.app.handler
+    events:
+      - httpApi:
+          path: /feedback
+          method: POST
+
+package:
+  patterns: # what to include in the artifact
+    - "src/**" # include only src
+    - "requirements.txt"
+    # extra pruning (belt & suspenders)
+    - "!**/__pycache__/**"
+    - "!**/*.pyc"
+    - "!**/*.pyo"
+    - "!**/tests/**"
+    - "!**/test/**"
+    - "!**/*.dist-info/**"
+    - "!**/*.egg-info/**"

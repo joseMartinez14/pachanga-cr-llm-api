@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: ai-game-tool
+Version: 0.1.0
+Requires-Python: >=3.11
+Requires-Dist: langchain>=0.2.0
+Requires-Dist: langchain-openai>=0.1.0
+Requires-Dist: pydantic>=2.7
+Requires-Dist: upstash-redis>=0.15.0
+Requires-Dist: tenacity>=8.2
+Requires-Dist: python-dotenv>=1.0
+Requires-Dist: orjson>=3.10

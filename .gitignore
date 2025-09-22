@@ -1,0 +1,7 @@
+.venv
+.env
+.serverless/
+node_modules/
+ai-config/
+Dockerfile
+.env.example
