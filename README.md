@@ -4,22 +4,25 @@ A serverless Python API that generates dynamic party game content using OpenAI a
 
 ## 🚀 Live API Endpoint
 
-**Lambda Function:** `arn:aws:lambda:us-east-1:055104238080:function:ai-game-tool-dev-game`
+**Lambda Function:** `https://skujfs07yh.execute-api.us-east-1.amazonaws.com/game-content`
 
 ## 🎮 Supported Game Types
 
 ### Trivia Mode
+
 - **TriviaMode_FreeForAll** - General trivia questions
 - **TriviaMode_TeamVsTeam** - Team competition format
 - **TriviaMode_RapidFire** - Quick-answer format
 
 ### Couple Mode
+
 - **CoupleMode_TruthOrDare** - Truth or dare questions
 - **CoupleMode_CoupleQuiz** - Compatibility questions
 - **CoupleMode_WouldYouRather** - Choice-based questions
 - **CoupleMode_StoryBuilder** - Story starter prompts
 
 ### Party Mode
+
 - **PartyMode_DrinkingChallenges** - Adult party challenges
 - **PartyMode_Charades** - Acting/guessing game items
 - **PartyMode_SpinTheBottle** - Bottle spin actions
@@ -68,6 +71,7 @@ curl -X POST https://your-api-gateway-url/feedback \
 ## 🎯 Game Parameters
 
 ### Common Parameters
+
 - `user_id` (string) - User identifier
 - `session_id` (string) - Session identifier
 - `game_name` (string) - One of the supported game types
@@ -75,6 +79,7 @@ curl -X POST https://your-api-gateway-url/feedback \
 - `specific_params` (object) - Game-specific parameters
 
 ### Trivia Mode Parameters
+
 - `topics` (array) - List of trivia topics
 - `difficulty` (string) - "easy", "medium", "hard" (default: "medium")
 - `count` (number) - Number of questions (default: 10)
@@ -82,6 +87,7 @@ curl -X POST https://your-api-gateway-url/feedback \
 - `seed` (string) - Random seed for reproducibility
 
 **Example for TeamVsTeam:**
+
 ```json
 {
   "topics": ["history", "science"],
@@ -92,6 +98,7 @@ curl -X POST https://your-api-gateway-url/feedback \
 ```
 
 ### Couple Mode Parameters
+
 - `safety` (string) - "G", "PG", "PG-13", "R" (default: "PG-13")
 - `spice_level` (string) - "low", "medium", "high" (default: "medium")
 - `relationship_stage` (string) - "dating", "serious", "married" (default: "dating")
@@ -99,6 +106,7 @@ curl -X POST https://your-api-gateway-url/feedback \
 - `theme` (string) - Story theme for StoryBuilder (default: "romantic")
 
 **Example for TruthOrDare:**
+
 ```json
 {
   "safety": "PG-13",
@@ -108,6 +116,7 @@ curl -X POST https://your-api-gateway-url/feedback \
 ```
 
 ### Party Mode Parameters
+
 - `intensity` (string) - "light", "medium", "heavy" (default: "medium")
 - `group_size` (number) - Number of players (default: 6)
 - `spice_level` (string) - "mild", "medium", "spicy" (default: "medium")
@@ -115,6 +124,7 @@ curl -X POST https://your-api-gateway-url/feedback \
 - `rule_style` (string) - For Kings Cup: "classic", "modern" (default: "classic")
 
 **Example for Charades:**
+
 ```json
 {
   "categories": ["movies", "TV shows", "celebrities"],
@@ -152,55 +162,68 @@ All endpoints return structured JSON responses:
 ### Item Types by Game Mode
 
 **Trivia Items:**
+
 - `type`: "multiple_choice"
 - `prompt`, `choices`, `answer_index`, `explanation`, `topic`, `difficulty`
 
 **Truth or Dare Items:**
+
 - `type`: "truth" or "dare"
 - `prompt`, `safety`
 
 **Couple Quiz Items:**
+
 - `type`: "quiz"
 - `prompt`, `choices`, `category`
 
 **Would You Rather Items:**
+
 - `type`: "would_you_rather"
 - `option_a`, `option_b`, `spice`
 
 **Story Builder Items:**
+
 - `type`: "story_starter"
 - `prompt`, `theme`
 
 **Drinking Challenge Items:**
+
 - `type`: "drinking_challenge"
 - `prompt`, `intensity`, `duration`
 
 **Charades Items:**
+
 - `type`: "charades"
 - `phrase`, `category`, `difficulty`
 
 **Spin Bottle Items:**
+
 - `type`: "spin_bottle"
 - `action`, `target_type`, `spice_level`
 
 **Kings Cup Items:**
+
 - `type`: "kings_cup"
 - `card`, `rule`, `description`
 
 ## 🧠 Smart Features
 
 ### Session Memory
+
 The API remembers past items and user feedback to:
+
 - Avoid repeating questions/challenges
 - Consider user preferences from feedback
 - Improve content quality over time
 
 ### Feedback System
+
 Rate content as "Good", "Bad", or "not feedback yet" to help the AI learn your preferences.
 
 ## 🔧 Local Development
 
 ### Prerequisites
+
 - Python 3.12+
 - Node.js (for Serverless Framework)
 - OpenAI API key
@@ -209,6 +232,7 @@ Rate content as "Good", "Bad", or "not feedback yet" to help the AI learn your p
 ### Setup
 
 1. **Clone and install:**
+
 ```bash
 git clone <repository>
 cd party-game-api
@@ -217,6 +241,7 @@ npm install -g serverless
 ```
 
 2. **Configure environment:**
+
 ```bash
 cp .env.example .env
 # Edit .env with your credentials:
@@ -226,6 +251,7 @@ cp .env.example .env
 ```
 
 3. **Test locally:**
+
 ```bash
 # Test a specific game function
 serverless invoke local --function game --data '{"body": "{\"game_name\": \"TriviaMode_FreeForAll\"}"}'
@@ -235,6 +261,7 @@ serverless offline
 ```
 
 4. **Deploy:**
+
 ```bash
 serverless deploy
 ```
